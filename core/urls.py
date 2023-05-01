@@ -16,8 +16,8 @@ from .views import (
 app_name = 'core'
 
 router = routers.DefaultRouter()
-router.register(r'category_product', CategoryViewSet)
-router.register(r'product_item', ItemViewSet)
+router.register(r'category_product', CategoryViewSet, basename='categories')
+router.register(r'product_item', ItemViewSet, basename='items')
 
 urlpatterns = [
     # rest_framework

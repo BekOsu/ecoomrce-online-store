@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_countries',
     'rest_framework',
+    'rest_framework_swagger',
     'core',
 ]
 
