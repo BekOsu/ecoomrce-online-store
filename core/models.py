@@ -22,11 +22,9 @@ class Item(models.Model):
     on_discount = models.BooleanField(default=False)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    label = models.CharField(choices=LABEL, max_length=2, null=True, default='N')
     stock = models.IntegerField(default=0)
     description = models.TextField()
-
-    def __str__(self):
-        return self.item_name
 
     def __str__(self):
         return self.item_name
