@@ -3,25 +3,30 @@ from django.db import models
 from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
-CATEGORY = (
-    ('S', 'Shirt'),
-    ('SP', 'Sport Wear'),
-    ('OW', 'Out Wear')
-)
-
 LABEL = (
     ('N', 'New'),
     ('BS', 'Best Seller')
 )
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Item(models.Model):
     item_name = models.CharField(max_length=100)
-    price = models.FloatField()
+    price = models.FloatField(default=0)
+    on_discount = models.BooleanField(default=False)
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY, max_length=2)
-    label = models.CharField(choices=LABEL, max_length=2)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    stock = models.IntegerField(default=0)
     description = models.TextField()
+
+    def __str__(self):
+        return self.item_name
 
     def __str__(self):
         return self.item_name
