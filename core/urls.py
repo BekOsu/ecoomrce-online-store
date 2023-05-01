@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from .views import (
     remove_from_cart,
     reduce_quantity_item,
@@ -7,12 +8,21 @@ from .views import (
     HomeView,
     OrderSummaryView,
     CheckoutView,
-    PaymentView
+    PaymentView,
+    CategoryViewSet,
+    ItemViewSet
 )
 
 app_name = 'core'
 
+router = routers.DefaultRouter()
+router.register(r'category_product', CategoryViewSet)
+router.register(r'product_item', ItemViewSet)
+
 urlpatterns = [
+    # rest_framework
+    path('api/', include(router.urls)),
+
     path('', HomeView.as_view(), name='home'),
     path('product/<pk>/', ProductView.as_view(), name='product'),
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
