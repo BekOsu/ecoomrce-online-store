@@ -193,10 +193,7 @@ def add_to_cart(request, pk):
 @login_required
 def remove_from_cart(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    order_qs = Order.objects.filter(
-        user=request.user,
-        ordered=False
-    )
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         if order.items.filter(item__pk=item.pk).exists():
@@ -220,10 +217,7 @@ def remove_from_cart(request, pk):
 @login_required
 def reduce_quantity_item(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    order_qs = Order.objects.filter(
-        user=request.user,
-        ordered=False
-    )
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         if order.items.filter(item__pk=item.pk).exists():
